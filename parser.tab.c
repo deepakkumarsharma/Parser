@@ -62,12 +62,13 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "task.y" /* yacc.c:339  */
+#line 1 "parser.y" /* yacc.c:339  */
 
 #include <cstdio>
-
+#include<string.h>
 #include <iostream>
-
+FILE *output;
+char buffer[100]="";
 using namespace std;
 
 
@@ -85,7 +86,7 @@ extern "C" FILE *yyin;
 void yyerror(const char *s);
 
 
-#line 89 "task.tab.c" /* yacc.c:339  */
+#line 90 "parser.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -103,7 +104,10 @@ void yyerror(const char *s);
 # define YYERROR_VERBOSE 0
 #endif
 
-
+/* In a future release of Bison, this section will be replaced
+   by #include "parser.tab.h".  */
+#ifndef YY_YY_PARSER_TAB_H_INCLUDED
+# define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -133,19 +137,18 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 36 "task.y" /* yacc.c:355  */
+#line 37 "parser.y" /* yacc.c:355  */
 
 
-	int ival;
+    int ival;
 
-	float fval;
+    float fval;
 
-	char *sval;
+    char *sval;
+    char *brace;
 
-	char *brace;
 
-
-#line 149 "task.tab.c" /* yacc.c:355  */
+#line 152 "parser.tab.c" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -156,11 +159,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-
+#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 164 "task.tab.c" /* yacc.c:358  */
+#line 167 "parser.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -1244,67 +1247,67 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 76 "task.y" /* yacc.c:1646  */
-    {cout<<"Sphere is here ";}
-#line 1250 "task.tab.c" /* yacc.c:1646  */
+#line 76 "parser.y" /* yacc.c:1646  */
+    {fputs("ball",output);}
+#line 1253 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 77 "task.y" /* yacc.c:1646  */
-    {cout<<"Cylinder sells like shells ";}
-#line 1256 "task.tab.c" /* yacc.c:1646  */
+#line 77 "parser.y" /* yacc.c:1646  */
+    {fputs("Cylinder sells like shells ",output);}
+#line 1259 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 78 "task.y" /* yacc.c:1646  */
-    {cout<<"Box the faux";}
-#line 1262 "task.tab.c" /* yacc.c:1646  */
+#line 78 "parser.y" /* yacc.c:1646  */
+    {fputs("Box the faux",output);}
+#line 1265 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 81 "task.y" /* yacc.c:1646  */
-    {cout<<"Named "<<(yyvsp[0].sval)<<" ";}
-#line 1268 "task.tab.c" /* yacc.c:1646  */
+#line 81 "parser.y" /* yacc.c:1646  */
+    {sprintf(buffer,"{ %s ",(yyvsp[0].sval));fputs(buffer,output);}
+#line 1271 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 84 "task.y" /* yacc.c:1646  */
-    {cout<<"With a hue of "<<(yyvsp[-1].sval)<<endl; }
-#line 1274 "task.tab.c" /* yacc.c:1646  */
+#line 84 "parser.y" /* yacc.c:1646  */
+    {sprintf(buffer," %s }",(yyvsp[-1].sval));fputs(buffer,output);}
+#line 1277 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 87 "task.y" /* yacc.c:1646  */
-    {cout<<"Point \t";}
-#line 1280 "task.tab.c" /* yacc.c:1646  */
+#line 87 "parser.y" /* yacc.c:1646  */
+    {fputs(" Points \t",output);}
+#line 1283 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 90 "task.y" /* yacc.c:1646  */
-    {cout<<"Angle \t";}
-#line 1286 "task.tab.c" /* yacc.c:1646  */
+#line 90 "parser.y" /* yacc.c:1646  */
+    {fputs("",output);}
+#line 1289 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 94 "task.y" /* yacc.c:1646  */
-    {cout<<"Length \t";}
-#line 1292 "task.tab.c" /* yacc.c:1646  */
+#line 94 "parser.y" /* yacc.c:1646  */
+    {fputs("",output);}
+#line 1295 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 97 "task.y" /* yacc.c:1646  */
-    { cout<<(yyvsp[0].ival)<<" ";}
-#line 1298 "task.tab.c" /* yacc.c:1646  */
+#line 97 "parser.y" /* yacc.c:1646  */
+    { sprintf(buffer,"%d ",(yyvsp[0].ival));;fputs(buffer,output);bzero(buffer,100);}
+#line 1301 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 98 "task.y" /* yacc.c:1646  */
-    { cout<<(yyvsp[0].fval)<<" ";}
-#line 1304 "task.tab.c" /* yacc.c:1646  */
+#line 98 "parser.y" /* yacc.c:1646  */
+    { sprintf(buffer,"%f ",(yyvsp[0].fval));fputs(buffer,output);bzero(buffer,100);}
+#line 1307 "parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1308 "task.tab.c" /* yacc.c:1646  */
+#line 1311 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1532,42 +1535,56 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 101 "task.y" /* yacc.c:1906  */
+#line 101 "parser.y" /* yacc.c:1906  */
 
 
 
 
 int main(int count,char **str) {
 
-	// open a file handle to a particular file:
+    // open a file handle to a particular file:
 
-	FILE *myfile = fopen(str[1], "r");
+    FILE *myfile = fopen(str[1], "r");
 
-	// make sure it is valid:
+    // make sure it is valid:
 
-	if (!myfile) {
+    if (!myfile) {
 
-		cout << "I can't open a.snazzle.file!" << endl;
+        cout << "I can't open a.snazzle.file!" << endl;
 
-		return -1;
+        return -1;
 
-	}
+    }
+        output = fopen("output", "w");
+    if(!output)
+    cout<<"SOOOOOOOOOOOOOOOOOOOOOOOO";
+    
 
-	// set flex to read from it instead of defaulting to STDIN:
+        // make sure it is valid:
 
-	yyin = myfile;
+        if (!myfile) {
 
-	
+                cout << "I can't open a.snazzle.file!" << endl;
 
-	// parse through the input until there is no more:
+                return -1;
 
-	do {
+        }
 
-		yyparse();
+    // set flex to read from it instead of defaulting to STDIN:
 
-	} while (!feof(yyin));
+    yyin = myfile;
 
-	
+    
+
+    // parse through the input until there is no more:
+
+    do {
+
+        yyparse();
+
+    } while (!feof(yyin));
+    fclose(output);
+    
 
 }
 
@@ -1575,10 +1592,10 @@ int main(int count,char **str) {
 
 void yyerror(const char *s) {
 
-	cout << "EEK, parse error!  Message: " << s << endl;
+    cout << "EEK, parse error!  Message: " << s << endl;
 
-	// might as well halt now:
+    // might as well halt now:
 
-	exit(-1);
+    exit(-1);
 
 }
